@@ -1,0 +1,32 @@
+name: Release
+on:
+  push:
+
+jobs:
+  Release:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+
+      - name: Check out code
+        uses: actions/checkout@v1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Build
+        run: |
+          set -eux
+          yarn install
+          yarn build
+
+      - name: Docker release
+        uses: elgohr/Publish-Docker-Github-Action@main
+        with:
+          name: ismdeep/db-manager-web
+          username: ismdeep
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          tags: "latest"

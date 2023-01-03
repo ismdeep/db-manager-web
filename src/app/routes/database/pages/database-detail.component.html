@@ -1,0 +1,57 @@
+<style>
+    pre {
+        display: block;
+        padding: 10px;
+        margin: 0 0 10px;
+        font-size: 13px;
+        line-height: 1.42857143;
+        color: #333;
+        word-break: break-all;
+        word-wrap: break-word;
+        background-color: #f5f5f5;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+</style>
+
+<br>
+<nz-card *ngIf="database != null" [nzLoading]="database == null" [nzTitle]="database.name" [nzExtra]="tpl">
+  <ng-template #tpl>
+    <button nz-button nzType="primary" (click)="editDatabase()">编辑</button>
+  </ng-template>
+  <pre>{{database.dsn}}</pre>
+  <span>
+    {{database.description}}
+  </span>
+</nz-card>
+
+
+<nz-card [nzExtra]="tpl1">
+  <ng-template #tpl1>
+    <button nz-button nzType="primary" (click)="createDatabaseItem()">创建</button>
+  </ng-template>
+  <nz-table #itemTable [nzData]="database_items" nzTableLayout="fixed" [nzHideOnSinglePage]="true">
+    <thead>
+    <tr>
+      <th>名称</th>
+      <th>用户名</th>
+      <th>密码</th>
+      <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of itemTable.data">
+      <td>{{item.name}}</td>
+      <td>{{item.username}}</td>
+      <td>{{item.password}}</td>
+      <td>
+        <a class="mr-md" (click)="showItemDetail(item)"><i nz-icon nzType='info'></i></a>
+        <a class="mr-md" (click)="editItem(item)"><i nz-icon nzType='edit'></i></a>
+        <a class="mr-md" (click)="deleteItem(item)" [nz-popconfirm]="'确定删除？'"><i nz-icon nzType='delete'></i></a>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+</nz-card>
+
+

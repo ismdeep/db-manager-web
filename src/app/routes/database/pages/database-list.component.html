@@ -1,0 +1,18 @@
+<br>
+<nz-card [nzExtra]="tpl">
+  <ng-template #tpl>
+    <button (click)='create()' nz-button nzType='primary'>接入</button>
+  </ng-template>
+  <st #st [data]='tasks' [columns]='columns'>
+    <ng-template st-row="last_status" let-index="index" let-item>
+      <span *ngIf="item.last_run!=null">
+        <nz-tag nzNoAnimation *ngIf="item.last_run.status == 0" [nzColor]="'yellow'">Pending</nz-tag>
+        <nz-tag nzNoAnimation *ngIf="item.last_run.status == 1" [nzColor]="'yellow'">Running</nz-tag>
+        <nz-tag nzNoAnimation *ngIf="item.last_run.status == 2 && item.last_run.exit_code == 0" [nzColor]="'green'">Success</nz-tag>
+        <nz-tag nzNoAnimation *ngIf="item.last_run.status == 2 && item.last_run.exit_code != 0" [nzColor]="'red'">Failed</nz-tag>
+        <nz-tag nzNoAnimation *ngIf="item.last_run.status == 3" [nzColor]="'gray'">Abort</nz-tag>
+        {{formatTime(item.last_run.end_time)}}
+      </span>
+    </ng-template>
+  </st>
+</nz-card>
