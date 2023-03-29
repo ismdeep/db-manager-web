@@ -24,7 +24,7 @@ jobs:
           yarn build
 
       - name: Docker release
-        uses: elgohr/Publish-Docker-Github-Action@main
+        uses: elgohr/Publish-Docker-Github-Action@v5
         with:
           name: ismdeep/db-manager-web
           username: ismdeep
